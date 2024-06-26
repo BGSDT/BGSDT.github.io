@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    height: auto !important;
+    padding-bottom: 295px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(242, 242, 242);
+    border-bottom: 1px solid white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.0575);
+}
+
+nav img {
+    width: 100px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+nav li {
+    margin: 0px auto;
+    float: left;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    width: 65px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+nav a:hover {
+    color: rgb(0, 174, 255);
+    display: inline-block;
+    border-bottom: 2px solid rgb(0, 174, 255);
+    height: 37px;
+}
+
+nav a[href="jieshao.html"] {
+    color: rgb(0, 174, 255);
+    border-bottom: 2px solid rgb(0, 174, 255);
+}
+
+#welcome {
+    width: 100%;
+    margin: 10px;
+    background-color: rgb(234, 238, 246);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.04), 0 3px 6px rgba(0,0,0,0.0575);
+}
+
+#welcome div {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+#welcome p {
+    margin: 5px auto;
+    font-size: 25px;
+    color: black;
+    font-family: "RobotoFlex Latin", "HarmonyOS Sans SC", sans-serif;
+}
+#welcome img {
+    margin: 10px auto;
+    width: 30%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#title {
+    background: url(../image/span.png) no-repeat 50%;
+    background-size: 10%;
+    font-size: 26px;
+    color: rgb(51, 102, 204);
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+}
+
+#welcome h1{
+    color: blue;
+}

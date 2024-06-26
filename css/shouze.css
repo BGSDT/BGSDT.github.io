@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    height: auto !important;
+    padding-bottom: 295px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(242, 242, 242);
+    border-bottom: 1px solid white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.0575);
+}
+
+nav img {
+    width: 100px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+nav li {
+    margin: 0px auto;
+    float: left;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    width: 65px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+nav a:hover {
+    color: rgb(0, 174, 255);
+    display: inline-block;
+    border-bottom: 2px solid rgb(0, 174, 255);
+    height: 37px;
+}
+
+#welcome {
+    width: 100%;
+    margin: 10px;
+    background-color: rgb(234, 238, 246);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.0575);
+}
+
+#welcome div {
+    margin: 10px;
+}
+
+#welcome img {
+    width: 50%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+#welcome a {
+    width: 50%;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    border: 3px solid aqua;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+#title {
+    font-size: 30px;
+    color: rgb(51, 102, 204);
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+}
+
+#title1 {
+    font-size: 25px;
+    color: black;
+}
+
+#title2 {
+    font-size: 20px;
+    color: black;
+}
+
+#welcome li {
+    font-size: 1rem;
+    margin: 10px;
+    margin-left: 30px;
+}
+
+#title3 {
+    color: rgb(62, 80, 116);
+}
+
+#title4 {
+    font-size: 1rem;
+}
