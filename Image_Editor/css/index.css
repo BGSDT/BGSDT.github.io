@@ -1,0 +1,194 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #50e3c2;
+    --background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+}
+
+@font-face {
+    font-family: A-OTF Midashi Min MA31 Pro MA31;
+    src: url(../font/aotf.otf);
+}
+
+@font-face {
+    font-family: Source Sans Pro;
+    src: url(../font/source_sans_pro.ttf);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--background);
+    color: white;
+}
+
+.screen {
+    display: none;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.active {
+    display: block;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tool-panel {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+}
+
+.btn-export {
+    background: #50e3c2;
+}
+
+.color-picker {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#canvas-container {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.shape-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.size-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    width: 80px;
+}
+
+.tool-section {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.tool-section h3 {
+    margin: 0 0 10px 0;
+    color: var(--secondary-color);
+}
+
+/* 新增模板库样式 */
+.template-section {
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+.template-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.template-item {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.template-item:hover {
+    transform: scale(1.05);
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 15px rgba(80, 227, 194, 0.3);
+}
+
+/* 新增教程库样式 */
+.tutorial-section {
+    margin: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+.tutorial-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.tutorial-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tutorial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(80, 227, 194, 0.2);
+}
+
+.tutorial-link {
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+.tutorial-thumbnail {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.tutorial-title {
+    padding: 12px;
+    font-size: 14px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+}

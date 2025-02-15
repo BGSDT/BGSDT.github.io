@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>高级图像编辑器</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="glass-panel">
+            <h1 style="font-size: 3em; text-align: center">✨ 高级图像编辑器</h1>
+            <button class="btn" onclick="showScreen('edit-screen')"
+                style="margin: 30px auto; display: block; padding: 15px 40px">
+                开始制作
+            </button>
+            
+            <!-- 模板库 -->
+            <div class="template-section">
+                <h3 style="color: #50e3c2; margin-bottom: 15px">🎨 模板库</h3>
+                <div class="template-gallery">
+                    <!-- 模板动态加载 -->
+                </div>
+            </div>
+
+            <!-- 新增教程库 -->
+            <div class="tutorial-section">
+                <h3 style="color: #ff6b6b; margin-bottom: 15px">📚 教程库</h3>
+                <div class="tutorial-gallery">
+                    <!-- 教程将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Screen -->
+    <div id="edit-screen" class="screen">
+        <div class="glass-panel">
+            <div class="tool-section">
+                <h3>📷 图片工具</h3>
+                <div class="tool-panel">
+                    <input type="file" id="image-input" accept="image/*" hidden>
+                    <button class="btn" onclick="document.getElementById('image-input').click()">
+                        📁 上传图片
+                    </button>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>🔣 形状工具</h3>
+                <div class="tool-panel">
+                    <select class="btn" id="shape-select">
+                        <option value="rect">⬜ 矩形</option>
+                        <option value="circle">⭕ 圆形</option>
+                        <option value="triangle">🔺 三角形</option>
+                    </select>
+                    <button class="btn" onclick="addShape()">➕ 添加形状</button>
+                    <div class="shape-controls">
+                        <input type="number" id="shape-width" class="size-input" placeholder="宽度" value="100" min="10">
+                        <input type="number" id="shape-height" class="size-input" placeholder="高度" value="100" min="10">
+                        <input type="color" id="shape-color" class="color-picker" value="#4a90e2">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>🔤 文字工具</h3>
+                <div class="tool-panel">
+                    <input type="text" id="text-input" class="btn" placeholder="输入文字"
+                        style="background: rgba(255,255,255,0.1)">
+                    <select class="btn" id="font-select">
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="A-OTF Midashi Min MA31 Pro MA31">A-OTF Midashi Min MA31 Pro MA31</option>
+                        <option value="Source Sans Pro">Source Sans Pro</option>
+                    </select>
+                    <input type="color" id="text-color" class="color-picker">
+                    <button class="btn" onclick="addText()">✍️ 添加文字</button>
+                </div>
+            </div>
+
+            <div id="canvas-container">
+                <canvas id="main-canvas"></canvas>
+            </div>
+
+            <button class="btn btn-export" onclick="showScreen('export-screen')" style="margin-top: 20px">
+                🚀 导出设计
+            </button>
+        </div>
+    </div>
+
+    <!-- Export Screen -->
+    <div id="export-screen" class="screen">
+        <div class="glass-panel">
+            <h2>⚙️ 导出设置</h2>
+            <div class="tool-panel">
+                <select class="btn" id="format-select">
+                    <option value="png">PNG 格式</option>
+                    <option value="jpg">JPG 格式</option>
+                </select>
+                <button class="btn btn-export" onclick="exportImage()">💾 立即导出</button>
+                <button class="btn" onclick="showScreen('edit-screen')">↩️ 返回编辑</button>
+            </div>
+            <div id="export-preview"></div>
+        </div>
+    </div>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

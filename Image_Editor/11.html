@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>高级图像编辑器</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #50e3c2;
+            --background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--background);
+            color: white;
+        }
+
+        .screen {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-panel {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+
+        .btn-export {
+            background: #50e3c2;
+        }
+
+        .color-picker {
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #canvas-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .shape-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .size-input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            width: 80px;
+        }
+
+        .tool-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tool-section h3 {
+            margin: 0 0 10px 0;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="glass-panel">
+            <h1 style="font-size: 3em; text-align: center">✨ 高级图像编辑器</h1>
+            <button class="btn" onclick="showScreen('edit-screen')"
+                style="margin: 30px auto; display: block; padding: 15px 40px">
+                开始制作
+            </button>
+        </div>
+    </div>
+
+    <!-- Edit Screen -->
+    <div id="edit-screen" class="screen">
+        <div class="glass-panel">
+            <div class="tool-section">
+                <h3>📷 图片工具</h3>
+                <div class="tool-panel">
+                    <input type="file" id="image-input" accept="image/*" hidden>
+                    <button class="btn" onclick="document.getElementById('image-input').click()">
+                        📁 上传图片
+                    </button>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>🔣 形状工具</h3>
+                <div class="tool-panel">
+                    <select class="btn" id="shape-select">
+                        <option value="rect">⬜ 矩形</option>
+                        <option value="circle">⭕ 圆形</option>
+                        <option value="triangle">🔺 三角形</option>
+                    </select>
+                    <button class="btn" onclick="addShape()">➕ 添加形状</button>
+                    <div class="shape-controls">
+                        <input type="number" id="shape-width" class="size-input" placeholder="宽度" value="100" min="10">
+                        <input type="number" id="shape-height" class="size-input" placeholder="高度" value="100" min="10">
+                        <input type="color" id="shape-color" class="color-picker" value="#4a90e2">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>🔤 文字工具</h3>
+                <div class="tool-panel">
+                    <input type="text" id="text-input" class="btn" placeholder="输入文字"
+                        style="background: rgba(255,255,255,0.1)">
+                    <select class="btn" id="font-select">
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Verdana">Verdana</option>
+                    </select>
+                    <input type="color" id="text-color" class="color-picker">
+                    <button class="btn" onclick="addText()">✍️ 添加文字</button>
+                </div>
+            </div>
+
+            <div id="canvas-container">
+                <canvas id="main-canvas"></canvas>
+            </div>
+
+            <button class="btn btn-export" onclick="showScreen('export-screen')" style="margin-top: 20px">
+                🚀 导出设计
+            </button>
+        </div>
+    </div>
+
+    <!-- Export Screen -->
+    <div id="export-screen" class="screen">
+        <div class="glass-panel">
+            <h2>⚙️ 导出设置</h2>
+            <div class="tool-panel">
+                <select class="btn" id="format-select">
+                    <option value="png">PNG 格式</option>
+                    <option value="jpeg">JPG 格式</option>
+                </select>
+                <button class="btn btn-export" onclick="exportImage()">💾 立即导出</button>
+                <button class="btn" onclick="showScreen('edit-screen')">↩️ 返回编辑</button>
+            </div>
+            <div id="export-preview"></div>
+        </div>
+    </div>
+
+    <script>
+        let canvas = new fabric.Canvas('main-canvas', {
+            selectionColor: 'rgba(74, 144, 226, 0.3)',
+            selectionBorderColor: '#4a90e2',
+            selectionLineWidth: 2
+        });
+
+        // 界面切换
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // 图片导入（添加缩放功能）
+        document.getElementById('image-input').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                fabric.Image.fromURL(event.target.result, function (img) {
+                    // 保存原始尺寸
+                    img.set({
+                        originalWidth: img.width,
+                        originalHeight: img.height
+                    });
+
+                    // 计算缩放比例
+                    const maxWidth = canvas.getWidth();
+                    const maxHeight = canvas.getHeight();
+                    const scale = Math.min(
+                        maxWidth / img.width,
+                        maxHeight / img.height
+                    );
+
+                    // 设置缩放后的尺寸
+                    img.set({
+                        scaleX: scale,
+                        scaleY: scale,
+                        left: (maxWidth - img.width * scale) / 2,
+                        top: (maxHeight - img.height * scale) / 2
+                    });
+
+                    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+                    canvas.requestRenderAll();
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 修改文字添加功能（移除阴影）
+        function addText() {
+            const text = new fabric.IText(document.getElementById('text-input').value, {
+                left: 100,
+                top: 100,
+                fontFamily: document.getElementById('font-select').value,
+                fill: document.getElementById('text-color').value,
+                fontSize: 24
+            });
+            canvas.add(text);
+            canvas.setActiveObject(text);
+        }
+
+        // 添加形状（保持不变）
+        function addShape() {
+            const type = document.getElementById('shape-select').value;
+            const width = parseInt(document.getElementById('shape-width').value);
+            const height = parseInt(document.getElementById('shape-height').value);
+            const color = document.getElementById('shape-color').value;
+
+            let shape;
+            switch (type) {
+                case 'rect':
+                    shape = new fabric.Rect({
+                        width: width,
+                        height: height,
+                        fill: color,
+                        left: 100,
+                        top: 100,
+                    });
+                    break;
+                case 'circle':
+                    shape = new fabric.Circle({
+                        radius: width / 2,
+                        fill: color,
+                        left: 100,
+                        top: 100,
+                    });
+                    break;
+                case 'triangle':
+                    shape = new fabric.Triangle({
+                        width: width,
+                        height: height,
+                        fill: color,
+                        left: 100,
+                        top: 100,
+                    });
+                    break;
+            }
+            canvas.add(shape);
+            canvas.setActiveObject(shape);
+        }
+
+        // 增强导出功能
+        // 修复导出功能
+        function exportImage() {
+            const format = document.getElementById('format-select').value;
+            const exportCanvas = fabric.util.createCanvasElement();
+
+            // 获取背景图片
+            const bgImg = canvas.backgroundImage;
+            if (!bgImg) {
+                alert('请先上传图片');
+                return;
+            }
+
+            // 使用原始尺寸
+            exportCanvas.width = bgImg.originalWidth;
+            exportCanvas.height = bgImg.originalHeight;
+
+            const ctx = exportCanvas.getContext('2d');
+
+            // 对于JPEG格式添加白色背景
+            if (format === 'jpeg') {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+            }
+
+            // 绘制背景图片
+            const img = new Image();
+            img.src = bgImg.getSrc();
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0, exportCanvas.width, exportCanvas.height);
+
+                // 绘制其他对象
+                canvas.getObjects().forEach(obj => {
+                    // 计算对象在原始尺寸下的位置和大小
+                    const scaleX = bgImg.originalWidth / (bgImg.width * bgImg.scaleX);
+                    const scaleY = bgImg.originalHeight / (bgImg.height * bgImg.scaleY);
+
+                    const objImg = new Image();
+                    objImg.src = obj.toDataURL({
+                        format: 'png',
+                        quality: 1
+                    });
+
+                    objImg.onload = function () {
+                        ctx.drawImage(
+                            objImg,
+                            (obj.left - bgImg.left) * scaleX,
+                            (obj.top - bgImg.top) * scaleY,
+                            obj.width * obj.scaleX * scaleX,
+                            obj.height * obj.scaleY * scaleY
+                        );
+
+                        // 生成下载链接
+                        const dataUrl = exportCanvas.toDataURL({
+                            format: format,
+                            quality: 1
+                        });
+
+                        const link = document.createElement('a');
+                        link.download = `design.${format}`;
+                        link.href = dataUrl;
+                        link.click();
+                    };
+                });
+            };
+        }
+
+        // 初始化画布
+        canvas.setWidth(1000);
+        canvas.setHeight(700);
+    </script>
+</body>
+
+</html>
