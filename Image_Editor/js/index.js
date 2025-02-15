@@ -183,7 +183,7 @@ async function exportImage() {
 }
 // 新增模板初始化代码
 const templates = [
-    '../image/pids.png',
+    './image/pids.png',
     'https://via.placeholder.com/800x600/50e3c2/ffffff?text=模板2',
     'https://via.placeholder.com/800x600/ff6b6b/ffffff?text=模板3'
 ];
@@ -238,17 +238,17 @@ window.onload = function () {
 const tutorials = [
     {
         title: "基础入门教程",
-        thumbnail: "../image/pids.png",
+        thumbnail: "./image/pids.png",
         url: ""
     },
     {
         title: "高级特效教学",
-        thumbnail: "../image/pids.png",
+        thumbnail: "./image/pids.png",
         url: "https://example.com/tutorial2"
     },
     {
         title: "导出技巧指南",
-        thumbnail: "../image/pids.png",
+        thumbnail: "./image/pids.png",
         url: "https://example.com/tutorial3"
     }
 ];
