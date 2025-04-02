@@ -61,7 +61,7 @@ nav a:hover {
     height: 37px;
 }
 
-nav a[href="index.html"] {
+nav a[href="mod.html"] {
     color: rgb(0, 174, 255);
     border-bottom: 2px solid rgb(0, 174, 255);
 }
